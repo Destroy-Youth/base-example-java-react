@@ -2,9 +2,11 @@ package com.example.basejavareact.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Persons
@@ -24,7 +26,8 @@ public class Persons implements Serializable {
     private Date birthDate;
     private String mail;
     private String sex;
-    private Integer idHobbie;
+    @OneToMany
+    private List<Hobbies> hobbies;
 
     public Integer getId() {
         return id;
@@ -74,12 +77,12 @@ public class Persons implements Serializable {
         this.sex = sex;
     }
 
-    public Integer getIdHobbie() {
-        return idHobbie;
+    public List<Hobbies> getHobbies() {
+        return hobbies;
     }
 
-    public void setIdHobbie(Integer idHobbie) {
-        this.idHobbie = idHobbie;
+    public void setHobbies(List<Hobbies> hobbies) {
+        this.hobbies = hobbies;
     }
 
 }

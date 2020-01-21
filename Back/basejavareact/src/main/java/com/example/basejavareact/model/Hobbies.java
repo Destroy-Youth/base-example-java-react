@@ -2,11 +2,13 @@ package com.example.basejavareact.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
  * Hobbies
  */
+@Entity
 public class Hobbies implements Serializable {
 
     /**
