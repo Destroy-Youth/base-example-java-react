@@ -52,7 +52,7 @@ public class PersonsService implements IPersonsService {
         Persons person = new Persons();
         Date birthDate = new Date();
         try {
-            birthDate = new SimpleDateFormat("dd-MM-yyyy").parse(personTO.getBirthDate());
+            birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(personTO.getBirthDate());
         } catch (ParseException e) {
             // TODO Cutom exception invalid date format
             e.printStackTrace();
