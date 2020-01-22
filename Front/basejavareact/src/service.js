@@ -1,6 +1,7 @@
 import Axios from "axios-observable";
+import swal from "sweetalert";
 
-const BASE_URL = "localhost:8080/v1";
+const BASE_URL = "http://localhost:8080/v1";
 const PERSONS_API = BASE_URL.concat("/persons");
 
 export const savePersonData = (
@@ -21,11 +22,16 @@ export const savePersonData = (
     hobbies: hobbies
   };
 
+  callback(true);
   Axios.post(PERSONS_API, payload).subscribe(
     response => {
-      callback();
+      callback(false);
+      swal("Operación completada", "Datos guardados", "success");
     },
-    error => console.log(error)
+    error => {
+      callback(false);
+      console.log(error);
+    }
   );
 };
 

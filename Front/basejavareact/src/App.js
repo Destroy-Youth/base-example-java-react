@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import * as yup from "yup";
 import { NameInputValidation, StringInputValidation } from "./InputValidation";
@@ -10,13 +10,16 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import swal from "sweetalert";
 import { savePersonData } from "./service";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div className="App">
-      <PersonalDataFormik />
+      <PersonalDataFormik setIsLoading={setIsLoading} />
+      {isLoading ? <CircularProgress /> : null}
     </div>
   );
 }
@@ -175,17 +178,16 @@ const PersonalDataFormik = withFormik({
     inputMail: StringInputValidation
   }),
   handleSubmit(values, bag) {
-    const successAlert = () =>
-      swal("Operación completada", "Datos guardados", "success");
+    console.log(values);
 
     savePersonData(
       values.inputFirstName,
       values.inputLastName,
       values.inputMail,
-      values.radioGender,
-      values.dateBirthDate,
+      values.gender,
+      values.birthDate,
       [], //FIXME ingresar hobbies
-      successAlert
+      bag.props.setIsLoading
     );
   },
   displayName: "PersonalDataForm"
