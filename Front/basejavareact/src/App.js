@@ -10,6 +10,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import swal from "sweetalert";
 
 export default function App() {
   return (
@@ -74,6 +75,7 @@ const PersonalDataForm = ({
         </div>
       )}
       <TextField
+        required
         className={classes.input}
         autoComplete="off"
         type={"text"}
@@ -91,6 +93,7 @@ const PersonalDataForm = ({
         </div>
       )}
       <TextField
+        required
         className={classes.input}
         autoComplete="off"
         type={"text"}
@@ -107,6 +110,7 @@ const PersonalDataForm = ({
         </div>
       )}
       <TextField
+        required
         className={classes.input}
         autoComplete="off"
         type={"email"}
@@ -118,7 +122,7 @@ const PersonalDataForm = ({
         margin={"normal"}
       />
 
-      <FormControl>
+      <FormControl required={true}>
         <FormLabel>Sexo</FormLabel>
         <RadioGroup
           name="gender"
@@ -133,6 +137,7 @@ const PersonalDataForm = ({
 
       <TextField
         id="birthDate"
+        required
         label="Fecha de nacimiento"
         type="date"
         className={classes.input}
@@ -169,7 +174,7 @@ const PersonalDataFormik = withFormik({
     inputMail: StringInputValidation
   }),
   handleSubmit(values, bag) {
-    console.log(values);
+    swal("Operación completada", "Datos guardados", "success");
   },
   displayName: "PersonalDataForm"
 })(PersonalDataForm);
