@@ -1,10 +1,15 @@
 import React from "react";
 import "./App.css";
 import * as yup from "yup";
-import { NameInputValidation } from "./InputValidation";
+import { NameInputValidation, StringInputValidation } from "./InputValidation";
 import { TextField, Button } from "@material-ui/core";
 import { withFormik } from "formik";
 import { makeStyles } from "@material-ui/styles";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 
 export default function App() {
   return (
@@ -45,9 +50,16 @@ const PersonalDataForm = ({
       "& button:first-child": {
         marginRight: "2rem"
       }
+    },
+    radioGroup: {
+      display: "fles",
+      flexDirection: "row"
     }
   });
 
+  /**
+   * Custom Material UI style hook
+   */
   const classes = useStyles();
 
   return (
@@ -56,6 +68,11 @@ const PersonalDataForm = ({
       className={classes.form}
       onSubmit={handleSubmit}
     >
+      {errors.inputFirstName && touched.inputFirstName && (
+        <div id="feedbackFirstName" className={classes.error}>
+          {errors.inputFirstName}
+        </div>
+      )}
       <TextField
         className={classes.input}
         autoComplete="off"
@@ -68,11 +85,64 @@ const PersonalDataForm = ({
         margin={"normal"}
         autoFocus={true}
       />
-      {errors.inputFirstName && touched.inputFirstName && (
-        <div id="feedbackFirstName" className={classes.error}>
-          {errors.inputFirstName}
+      {errors.inputLastName && touched.inputLastName && (
+        <div id="feedbackLastName" className={classes.error}>
+          {errors.inputLastName}
         </div>
       )}
+      <TextField
+        className={classes.input}
+        autoComplete="off"
+        type={"text"}
+        id={"inputLastName"}
+        value={values.inputLastName}
+        onChange={handleChange}
+        variant={"outlined"}
+        label={"Apellido"}
+        margin={"normal"}
+      />
+      {errors.inputMail && touched.inputMail && (
+        <div id="feedbackMail" className={classes.error}>
+          {errors.inputMail}
+        </div>
+      )}
+      <TextField
+        className={classes.input}
+        autoComplete="off"
+        type={"email"}
+        id={"inputMail"}
+        value={values.inputMail}
+        onChange={handleChange}
+        variant={"outlined"}
+        label={"Correo"}
+        margin={"normal"}
+      />
+
+      <FormControl>
+        <FormLabel>Sexo</FormLabel>
+        <RadioGroup
+          name="gender"
+          value={values.radioGender}
+          onChange={handleChange}
+          className={classes.radioGroup}
+        >
+          <FormControlLabel value="F" control={<Radio />} label="Female" />
+          <FormControlLabel value="M" control={<Radio />} label="Male" />
+        </RadioGroup>
+      </FormControl>
+
+      <TextField
+        id="birthDate"
+        label="Fecha de nacimiento"
+        type="date"
+        className={classes.input}
+        InputLabelProps={{
+          shrink: true
+        }}
+        value={values.dateBirthDate}
+        onChange={handleChange}
+      />
+
       <div className={classes.buttonGroup}>
         <Button variant={"outlined"} color={"secondary"}>
           Limpiar
@@ -86,15 +156,20 @@ const PersonalDataForm = ({
 };
 
 const PersonalDataFormik = withFormik({
-  mapPropsToValues({ inputFirstName }) {
+  mapPropsToValues() {
     return {
-      inputFirstName: inputFirstName || ""
+      inputFirstName: "",
+      inputLastName: "",
+      inputMail: ""
     };
   },
   validationSchema: yup.object().shape({
-    inputFirstName: NameInputValidation
+    inputFirstName: NameInputValidation,
+    inputLastName: NameInputValidation,
+    inputMail: StringInputValidation
   }),
   handleSubmit(values, bag) {
-    bag.props.consulta(values.inputFolioRecolecta);
-  }
+    console.log(values);
+  },
+  displayName: "PersonalDataForm"
 })(PersonalDataForm);

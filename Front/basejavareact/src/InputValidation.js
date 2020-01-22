@@ -8,6 +8,8 @@ export const GeneralInputValidation = yup
   })
   .required("Campo requerido");
 
+export const StringInputValidation = yup.string();
+
 export const NameInputValidation = yup
   .string()
   .matches(/(^[a-zA-Z ]*$)/, {
