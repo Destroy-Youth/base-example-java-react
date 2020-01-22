@@ -2,8 +2,9 @@ import React from "react";
 import "./App.css";
 import * as yup from "yup";
 import { NameInputValidation } from "./InputValidation";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import { withFormik } from "formik";
+import { makeStyles } from "@material-ui/styles";
 
 export default function App() {
   return (
@@ -21,9 +22,42 @@ const PersonalDataForm = ({
   handleBlur,
   handleSubmit
 }) => {
+  /**
+   * Material-UI Styles hook API
+   */
+  const useStyles = makeStyles({
+    error: {
+      color: "red"
+    },
+    form: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      marginTop: "2rem"
+    },
+    input: {
+      margin: "0 0 1rem 0"
+    },
+    buttonGroup: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "row",
+      "& button:first-child": {
+        marginRight: "2rem"
+      }
+    }
+  });
+
+  const classes = useStyles();
+
   return (
-    <form id={"personalDataForm"} onSubmit={handleSubmit}>
+    <form
+      id={"personalDataForm"}
+      className={classes.form}
+      onSubmit={handleSubmit}
+    >
       <TextField
+        className={classes.input}
         autoComplete="off"
         type={"text"}
         id={"inputFirstName"}
@@ -35,8 +69,18 @@ const PersonalDataForm = ({
         autoFocus={true}
       />
       {errors.inputFirstName && touched.inputFirstName && (
-        <div id="feedbackFirstName">{errors.inputFirstName}</div>
+        <div id="feedbackFirstName" className={classes.error}>
+          {errors.inputFirstName}
+        </div>
       )}
+      <div className={classes.buttonGroup}>
+        <Button variant={"outlined"} color={"secondary"}>
+          Limpiar
+        </Button>
+        <Button type={"submit"} variant={"outlined"} color={"primary"}>
+          Enviar
+        </Button>
+      </div>
     </form>
   );
 };
