@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import swal from "sweetalert";
+import { savePersonData } from "./service";
 
 export default function App() {
   return (
@@ -174,7 +175,18 @@ const PersonalDataFormik = withFormik({
     inputMail: StringInputValidation
   }),
   handleSubmit(values, bag) {
-    swal("Operación completada", "Datos guardados", "success");
+    const successAlert = () =>
+      swal("Operación completada", "Datos guardados", "success");
+
+    savePersonData(
+      values.inputFirstName,
+      values.inputLastName,
+      values.inputMail,
+      values.radioGender,
+      values.dateBirthDate,
+      [], //FIXME ingresar hobbies
+      successAlert
+    );
   },
   displayName: "PersonalDataForm"
 })(PersonalDataForm);
