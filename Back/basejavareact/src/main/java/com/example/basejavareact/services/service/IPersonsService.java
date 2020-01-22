@@ -13,4 +13,6 @@ import org.springframework.stereotype.Service;
 public interface IPersonsService {
 
     List<PersonsTO> findAll();
+
+    void savePerson(PersonsTO person);
 }

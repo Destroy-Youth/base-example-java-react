@@ -1,8 +1,6 @@
 package com.example.basejavareact.commons.to;
 
-import java.sql.Date;
 import java.util.List;
-import com.example.basejavareact.model.Hobbies;;
 
 /**
  * PersonsTO
@@ -16,10 +14,10 @@ public class PersonsTO extends BaseTO {
 
     private String firstName;
     private String lastName;
-    private Date birthDate;
+    private String birthDate;
     private String mail;
     private String sex;
-    private List<Hobbies> hobbies;
+    private List<HobbiesTO> hobbies;
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -41,11 +39,11 @@ public class PersonsTO extends BaseTO {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -65,11 +63,11 @@ public class PersonsTO extends BaseTO {
         this.sex = sex;
     }
 
-    public List<Hobbies> getHobbies() {
+    public List<HobbiesTO> getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(List<Hobbies> hobbies) {
+    public void setHobbies(List<HobbiesTO> hobbies) {
         this.hobbies = hobbies;
     }
 
