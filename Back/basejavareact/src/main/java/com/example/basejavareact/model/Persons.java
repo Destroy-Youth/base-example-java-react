@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,9 +29,11 @@ public class Persons implements Serializable {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Column(name = "birthdate")
     private Date birthDate;
     private String mail;
     private String sex;
+    private Integer idHobbie;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Hobbies> hobbies;
 
@@ -87,6 +91,14 @@ public class Persons implements Serializable {
 
     public void setHobbies(List<Hobbies> hobbies) {
         this.hobbies = hobbies;
+    }
+
+    public Integer getIdHobbie() {
+        return idHobbie;
+    }
+
+    public void setIdHobbie(Integer idHobbie) {
+        this.idHobbie = idHobbie;
     }
 
 }

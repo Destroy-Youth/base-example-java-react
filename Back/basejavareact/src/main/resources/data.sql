@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS hobbies (
 );
 
  
--- INSERT INTO persons (first_name, last_name) VALUES
---   ('Wes', 'Bos'),
---   ('Luis', 'Herrera'),
---   ('Ivan', 'Equihua'),
---   ('Dan', 'Abramov');
+INSERT INTO persons (id, first_name, last_name, mail, sex, id_hobbie) VALUES
+  (1, 'Wes', 'Bos', 'wes.bos@mail.com', 'm', 1);
+
+INSERT INTO hobbies (id, name) VALUES
+  (1, 'Coding');
